@@ -235,7 +235,8 @@ class SpheroController:
 
         finally:
             pygame.quit()
-    def calibrate_then_run_path(sphero_controller, path):
+    
+def calibrate_then_run_path(sphero_controller, path):
         try:
             with sphero_controller.connect_toy() as api:
                 print("Rotate the robot using the joystick (left/right). Press R2 to begin the race.")
@@ -244,9 +245,6 @@ class SpheroController:
                 while calibrating:
                     pygame.event.pump()
                     X = sphero_controller.joystick.get_axis(0)
-                    # Print button states for debugging
-                    for i in range(sphero_controller.joystick.get_numbuttons()):
-                        print(f"Button {i}: {sphero_controller.joystick.get_button(i)}")
                     # Only allow rotation
                     if X < -0.7:
                         current_heading -= 5
@@ -257,6 +255,7 @@ class SpheroController:
                     api.set_speed(0)
                     # Wait for R2 button to begin race
                     if sphero_controller.joystick.get_button(buttons['R2']):
+                        api.set_front_led(Color(0, 255, 0))  # Set LED to green
                         calibrating = False
                     time.sleep(0.1)
                 print("Calibration done. Starting race!")
@@ -275,8 +274,7 @@ class SpheroController:
                     time.sleep(duration)
                 api.set_speed(0)
         finally:
-            pygame.quit()
-  
+            pygame.quit()  
 
 def main(toy_name=None, joystickID=0, playerID=1):
     pygame.init()
