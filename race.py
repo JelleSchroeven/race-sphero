@@ -314,10 +314,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 4 and sys.argv[4] == "race":
         preprogrammed_path = [
             (0, 100, 2),    #start met heading 0°
-            ('+90', 100, 1), 
-            ('+90', 100, 2),
-            ('-90', 100, 1),
-            (0, 0, 0)        
+                   
         ]
 
     toy_name = sys.argv[1]
