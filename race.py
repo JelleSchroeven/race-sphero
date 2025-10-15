@@ -253,7 +253,7 @@ class SpheroController:
                     api.set_heading(current_heading)
                     api.set_speed(0)
                     # Wait for START button to begin race
-                    if sphero_controller.joystick.get_button(buttons['START']):
+                    if sphero_controller.joystick.get_button(buttons['R2']):
                         calibrating = False
                     time.sleep(0.1)
                 print("Calibration done. Starting race!")
