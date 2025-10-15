@@ -262,8 +262,7 @@ def calibrate_then_run_path(sphero_controller, path):
                 print("Calibration done. Starting race!")
                 # Run the pre-programmed path, starting from calibrated heading
                 for heading, speed, duration in path:
-                    if isinstance(heading, str):
-                        if heading is None:
+                    if heading is None:
                             pass
                     elif isinstance(heading, str):
                         if heading.startswith('+'):
