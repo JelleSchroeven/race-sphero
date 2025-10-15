@@ -265,7 +265,8 @@ def calibrate_then_run_path(sphero_controller, path):
                     if isinstance(heading, str):
                         if heading is None:
                             pass
-                        elif heading.startswith('+'):
+                    elif isinstance(heading, str):
+                        if heading.startswith('+'):
                             current_heading += int(heading[1:])
                         elif heading.startswith('-'):
                             current_heading -= int(heading[1:])
@@ -316,7 +317,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 4 and sys.argv[4] == "race":
         preprogrammed_path = [
             (None, 125, 2),    #start met heading 0°
-            (+90, 125,1)
+            ('+90', 125,1)
                    
         ]
 
