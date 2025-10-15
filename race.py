@@ -263,7 +263,9 @@ def calibrate_then_run_path(sphero_controller, path):
                 # Run the pre-programmed path, starting from calibrated heading
                 for heading, speed, duration in path:
                     if isinstance(heading, str):
-                        if heading.startswith('+'):
+                        if heading is none:
+                            pass
+                        elif heading.startswith('+'):
                             current_heading += int(heading[1:])
                         elif heading.startswith('-'):
                             current_heading -= int(heading[1:])
