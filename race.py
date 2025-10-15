@@ -238,12 +238,15 @@ class SpheroController:
     def calibrate_then_run_path(sphero_controller, path):
         try:
             with sphero_controller.connect_toy() as api:
-                print("Rotate the robot using the joystick (left/right). Press START to begin the race.")
+                print("Rotate the robot using the joystick (left/right). Press R2 to begin the race.")
                 calibrating = True
                 current_heading = api.get_heading()
                 while calibrating:
                     pygame.event.pump()
                     X = sphero_controller.joystick.get_axis(0)
+                    # Print button states for debugging
+                    for i in range(sphero_controller.joystick.get_numbuttons()):
+                        print(f"Button {i}: {sphero_controller.joystick.get_button(i)}")
                     # Only allow rotation
                     if X < -0.7:
                         current_heading -= 5
@@ -252,7 +255,7 @@ class SpheroController:
                     current_heading %= 360
                     api.set_heading(current_heading)
                     api.set_speed(0)
-                    # Wait for START button to begin race
+                    # Wait for R2 button to begin race
                     if sphero_controller.joystick.get_button(buttons['R2']):
                         calibrating = False
                     time.sleep(0.1)
