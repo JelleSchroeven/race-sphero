@@ -240,6 +240,7 @@ def calibrate_then_run_path(sphero_controller, path):
         try:
             with sphero_controller.connect_toy() as api:
                 print("Rotate the robot using the joystick (left/right). Press R2 to begin the race.")
+                api.set_front_led(Color(255, 0, 0))  # Zet LED rood tijdens calibratie
                 calibrating = True
                 current_heading = api.get_heading()
                 while calibrating:
@@ -255,7 +256,7 @@ def calibrate_then_run_path(sphero_controller, path):
                     api.set_speed(0)
                     # Wait for R2 button to begin race
                     if sphero_controller.joystick.get_button(buttons['R2']):
-                        api.set_front_led(Color(0, 255, 0))  # Set LED to green
+                        api.set_front_led(Color(0, 255, 255))  # Set LED to green
                         calibrating = False
                     time.sleep(0.1)
                 print("Calibration done. Starting race!")
