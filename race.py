@@ -315,8 +315,8 @@ if __name__ == "__main__":
     preprogrammed_path = None
     if len(sys.argv) > 4 and sys.argv[4] == "race":
         preprogrammed_path = [
-            (None, 125, 3,5),    #start met heading 0°
-            ('+90', 125,4)
+            (None, 125, 3),    #start met heading 0°
+            ('+90', 125,4),
             ('+90', 125, 2)
                    
         ]
