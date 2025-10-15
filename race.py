@@ -235,12 +235,30 @@ class SpheroController:
 
         finally:
             pygame.quit()
-    def run_premade_path(self, path):
+    def calibrate_then_run_path(sphero_controller, path):
         try:
-            with self.connect_toy() as api:
-                current_heading = 0
+            with sphero_controller.connect_toy() as api:
+                print("Rotate the robot using the joystick (left/right). Press START to begin the race.")
+                calibrating = True
+                current_heading = api.get_heading()
+                while calibrating:
+                    pygame.event.pump()
+                    X = sphero_controller.joystick.get_axis(0)
+                    # Only allow rotation
+                    if X < -0.7:
+                        current_heading -= 5
+                    elif X > 0.7:
+                        current_heading += 5
+                    current_heading %= 360
+                    api.set_heading(current_heading)
+                    api.set_speed(0)
+                    # Wait for START button to begin race
+                    if sphero_controller.joystick.get_button(buttons['START']):
+                        calibrating = False
+                    time.sleep(0.1)
+                print("Calibration done. Starting race!")
+                # Run the pre-programmed path, starting from calibrated heading
                 for heading, speed, duration in path:
-                    # Check if heading is relative
                     if isinstance(heading, str):
                         if heading.startswith('+'):
                             current_heading += int(heading[1:])
@@ -252,9 +270,10 @@ class SpheroController:
                     api.set_heading(current_heading)
                     api.set_speed(speed)
                     time.sleep(duration)
-                api.set_speed(0)    
+                api.set_speed(0)
         finally:
-            pygame.quit()   
+            pygame.quit()
+  
 
 def main(toy_name=None, joystickID=0, playerID=1):
     pygame.init()
@@ -280,7 +299,7 @@ def main(toy_name=None, joystickID=0, playerID=1):
 
     if sphero_controller.toy:
         if preprogrammed_path :
-            sphero_controller.run_premade_path(preprogrammed_path)
+            calibrate_then_run_path(sphero_controller, preprogrammed_path)
         else:
             sphero_controller.control_toy()
 
