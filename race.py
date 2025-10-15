@@ -315,16 +315,15 @@ if __name__ == "__main__":
     preprogrammed_path = None
     if len(sys.argv) > 4 and sys.argv[4] == "race":
         preprogrammed_path = [
-            (None, 125, 3),    #start met heading 0°
-            ('+90', 125, 2),
-            ('+90', 125, 2),
-            ('+90', 125, 1),
-            ('-90', 125, 2),
-            ('-90', 125, 1),
-            ('+90', 125, 2),
-            ('+90', 125, 2),
-            ('+90', 125, 3),
-                   
+            (None, 125, 2.5),   # Part 1                5 Tiles         start met heading 0° en ga straight
+            ('+90', 125, 2),    # Part 2 right          4 Tiles         turn right and go straight
+            ('+90', 125, 2),    # Part 3                2 Tiles         turn right and go straight
+            ('+90', 125, 1),    # Part 4                2 Tiles         turn right and go straight 
+            ('-90', 125, 2),    # Part 5 left           4 Tiles         turn left and go straight
+            ('-90', 125, 1),    # Part 6 left           2 Tiles         turn left and go straight
+            ('+90', 125, 2),    # Part 7 right          2 Tiles         turn right and go straight
+            ('+90', 125, 1),    # Part 8 right          4 Tiles         turn right and go straight
+            ('+90', 125, 3),    # Part 9 right          3 Tiles         turn right and go straight
         ]
 
     toy_name = sys.argv[1]
