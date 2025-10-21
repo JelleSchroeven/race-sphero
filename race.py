@@ -310,7 +310,7 @@ if __name__ == "__main__":
         sys.exit(1)
     
     preprogrammed_path = None
-    if len(sys.argv) > 4 and sys.argv[4] == "race": 
+    if len(sys.argv) > 4 and sys.argv[4] == "race": # preprogrammed path without pauses
         preprogrammed_path = [
             (None, 125, 2.5),   # Part 1                5 Tiles         start met heading 0° en ga straight
             ('+90', 125, 2),    # Part 2 right          4 Tiles         turn right and go straight
@@ -344,6 +344,8 @@ if __name__ == "__main__":
             ('+90', 125, 3),    # Part 9 right          3 Tiles         turn right and go straight
         ]
 
+    elif len(sys.argv) > 4 and sys.argv[4] == "manual": # manual control  !!! NOT tested !!!
+        preprogrammed_path = None
 
     toy_name = sys.argv[1]
     joystick = int(sys.argv[2])
